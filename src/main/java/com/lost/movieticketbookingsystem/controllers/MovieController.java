@@ -1,0 +1,50 @@
+package com.lost.movieticketbookingsystem.controllers;
+
+import com.lost.movieticketbookingsystem.models.Movie;
+import com.lost.movieticketbookingsystem.services.MovieServices;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+@RestController
+
+
+public class MovieController {
+
+    MovieServices movieServices;
+
+    public MovieController(@Qualifier("movieServices") MovieServices movieServices){
+        this.movieServices = movieServices;
+    }
+
+
+    @GetMapping("/movie/{id}")
+    public Movie getById(@PathVariable("id") Long id){
+        return movieServices.getById(id);
+    }
+
+    @GetMapping("/movie")
+    public List<Movie> getAll(){
+        return movieServices.getAll();
+    }
+
+
+    @PostMapping("/movie")
+    public Movie create(@RequestBody Movie movie){
+        return movieServices.create(movie);
+    }
+
+    @PutMapping("/movie/{id}")
+    public Movie update(@PathVariable("id") Long id,  @RequestBody Movie movie){
+        return movieServices.update(id, movie);
+    }
+
+
+    @DeleteMapping("/movie/{id}")
+    public void delete(@PathVariable("id") Long Id){
+        movieServices.delete(Id);
+
+    }
+
+
+}
