@@ -10,15 +10,16 @@ import com.lost.movieticketbookingsystem.repositories.CinemaHallRepository;
 import com.lost.movieticketbookingsystem.repositories.MovieRepository;
 import com.lost.movieticketbookingsystem.repositories.ShowRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
+@Primary
 @Service("cinemaHallServices")
-public class CinemaHallServices {
+public class CinemaHallServices implements CinemaHallServ{
 
     CinemaHallRepository cinemaHallRepository;
     ShowRepository showRepository;

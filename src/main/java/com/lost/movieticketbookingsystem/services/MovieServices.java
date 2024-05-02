@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Service("movieServices")
 
-public class MovieServices {
+public class MovieServices implements  MovieServ{
 
     MovieRepository movieRepository;
 

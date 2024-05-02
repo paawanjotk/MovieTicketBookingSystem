@@ -3,7 +3,7 @@ package com.lost.movieticketbookingsystem.controllers;
 import com.lost.movieticketbookingsystem.dtos.CinemaHallDto;
 import com.lost.movieticketbookingsystem.models.CinemaHall;
 import com.lost.movieticketbookingsystem.models.Pair;
-import com.lost.movieticketbookingsystem.services.CinemaHallServices;
+import com.lost.movieticketbookingsystem.services.CinemaHallServ;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,9 +13,9 @@ import java.util.List;
 @RestController
 
 public class CinemaHallController {
-    CinemaHallServices cinemaHallServices;
+    CinemaHallServ cinemaHallServices;
 
-    public CinemaHallController(@Qualifier("cinemaHallServices") CinemaHallServices cinemaHallServices){
+    public CinemaHallController(@Qualifier("cinemaHallServices") CinemaHallServ cinemaHallServices){
         this.cinemaHallServices = cinemaHallServices;
     }
     @GetMapping("/cinemaHall/{id}")

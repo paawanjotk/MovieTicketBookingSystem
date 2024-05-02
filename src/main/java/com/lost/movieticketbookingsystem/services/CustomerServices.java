@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 @Service("customerServices")
-public class CustomerServices {
+public class CustomerServices implements CustomerServ {
     CustomerRepository customerRepository;
 
     public CustomerServices(@Qualifier("customerRepository") CustomerRepository customerRepository){

@@ -10,12 +10,14 @@ import com.lost.movieticketbookingsystem.repositories.CinemaHallRepository;
 import com.lost.movieticketbookingsystem.repositories.MovieRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 @Service("bookingServices")
-public class BookingServices {
+public class BookingServices implements BookingServ {
 
     BookingRepository bookingRepository;
 

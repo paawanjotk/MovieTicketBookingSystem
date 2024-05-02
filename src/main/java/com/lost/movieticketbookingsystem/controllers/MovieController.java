@@ -2,7 +2,7 @@ package com.lost.movieticketbookingsystem.controllers;
 
 import com.lost.movieticketbookingsystem.dtos.MovieDto;
 import com.lost.movieticketbookingsystem.models.Movie;
-import com.lost.movieticketbookingsystem.services.MovieServices;
+import com.lost.movieticketbookingsystem.services.MovieServ;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,9 +12,9 @@ import java.util.List;
 
 public class MovieController {
 
-    MovieServices movieServices;
+    MovieServ movieServices;
 
-    public MovieController(@Qualifier("movieServices") MovieServices movieServices){
+    public MovieController(@Qualifier("movieServices") MovieServ movieServices){
         this.movieServices = movieServices;
     }
 
