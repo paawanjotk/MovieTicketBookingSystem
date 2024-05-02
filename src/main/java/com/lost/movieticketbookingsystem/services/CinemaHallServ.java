@@ -1,5 +1,6 @@
 package com.lost.movieticketbookingsystem.services;
 
+import com.lost.movieticketbookingsystem.dtos.CinemaHallDto;
 import com.lost.movieticketbookingsystem.models.CinemaHall;
 import com.lost.movieticketbookingsystem.models.Pair;
 
@@ -7,9 +8,9 @@ import java.util.List;
 
 public interface CinemaHallServ {
 
-    CinemaHall getById(Long id);
+    CinemaHallDto getById(Long id);
 
-    List<CinemaHall> getAll();
+    List<CinemaHallDto> getAll();
 
     CinemaHall create(CinemaHall cinemaHall);
 
