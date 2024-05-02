@@ -3,10 +3,10 @@ package com.lost.movieticketbookingsystem.services;
 import com.lost.movieticketbookingsystem.exceptions.CinemaHallNotFoundException;
 import com.lost.movieticketbookingsystem.exceptions.MovieNotFoundException;
 import com.lost.movieticketbookingsystem.models.CinemaHall;
-import com.lost.movieticketbookingsystem.models.Movie;
 import com.lost.movieticketbookingsystem.models.Pair;
-import com.lost.movieticketbookingsystem.models.Show;
+import com.lost.movieticketbookingsystem.models.Shows;
 import com.lost.movieticketbookingsystem.repositories.CinemaHallRepository;
+import com.lost.movieticketbookingsystem.repositories.MovieRepository;
 import com.lost.movieticketbookingsystem.repositories.ShowRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -21,10 +21,12 @@ public class CinemaHallServices {
 
     CinemaHallRepository cinemaHallRepository;
     ShowRepository showRepository;
+    MovieRepository movieRepository;
 
-    public CinemaHallServices(@Qualifier("cinemaHallRepository") CinemaHallRepository cinemaHallRepository, @Qualifier("showRepository") ShowRepository showRepository){
+    public CinemaHallServices(@Qualifier("cinemaHallRepository") CinemaHallRepository cinemaHallRepository, @Qualifier("showRepository") ShowRepository showRepository, @Qualifier("movieRepository") MovieRepository movieRepository){
         this.cinemaHallRepository = cinemaHallRepository;
         this.showRepository = showRepository;
+        this.movieRepository = movieRepository;
     }
 
     public CinemaHall getById(Long Id){
@@ -61,17 +63,19 @@ public class CinemaHallServices {
         cinemaHallRepository.deleteById(Id);
     }
     public List<Pair> getMovieShowTimeByCinemaHallId(Long cinemaHallId){
-        List<Show> allShows = showRepository.findAll();
+        List<Shows> allShows = showRepository.findAll();
 
         for(int i = 0; i < allShows.size(); i++){
-            if(!allShows.get(i).getCinemaHall().getId().equals(cinemaHallId)){
+            if(!allShows.get(i).getCinemaHallId().equals(cinemaHallId)){
                 allShows.remove(i);
             }
         }
 
         List<Pair> pairs = new ArrayList<>();
         for(int i = 0; i < allShows.size(); i++){
-            pairs.add(new Pair(allShows.get(i).getMovie().getTitle(), allShows.get(i).getShowTime()));
+            String movieTitle = movieRepository.findById(allShows.get(i).getMovieId())
+                    .orElseThrow(() -> new MovieNotFoundException("Movie not found")).getTitle();
+            pairs.add(new Pair(movieTitle, allShows.get(i).getShowTime()));
         }
 
         return pairs;

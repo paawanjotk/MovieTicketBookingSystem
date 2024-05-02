@@ -3,7 +3,6 @@ package com.lost.movieticketbookingsystem.controllers;
 import com.lost.movieticketbookingsystem.models.CustomerProfile;
 import com.lost.movieticketbookingsystem.services.CustomerServices;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.hateoas.InputType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

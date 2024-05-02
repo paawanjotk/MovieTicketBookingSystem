@@ -3,15 +3,13 @@ package com.lost.movieticketbookingsystem.services;
 import com.lost.movieticketbookingsystem.exceptions.BookingNotFoundException;
 import com.lost.movieticketbookingsystem.models.Booking;
 import com.lost.movieticketbookingsystem.models.Movie;
-import com.lost.movieticketbookingsystem.models.Show;
+import com.lost.movieticketbookingsystem.models.Shows;
 import com.lost.movieticketbookingsystem.repositories.BookingRepository;
 import com.lost.movieticketbookingsystem.repositories.CinemaHallRepository;
 import com.lost.movieticketbookingsystem.repositories.MovieRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
-import java.awt.print.Book;
 import java.util.List;
 import java.util.Optional;
 @Service("bookingServices")
@@ -54,7 +52,7 @@ public class BookingServices {
             throw new RuntimeException("Movie not found");
         }
 
-        Show show  = booking.getShow();
+        Shows show  = booking.getShows();
         if(show.getAvailableSeats() < booking.getTickets()){
             throw new RuntimeException("Not enough seats available");
         }
@@ -66,7 +64,7 @@ public class BookingServices {
         Booking booking1 = bookingRepository.findById(Id)
                 .orElseThrow(() -> new BookingNotFoundException("Booking not found"));
 
-        booking1.setShow(booking.getShow());
+        booking1.setShows(booking.getShows());
         booking1.setTickets(booking.getTickets());
         booking1.setPrice(booking.getPrice());
         booking1.setMovieId(booking.getMovieId());

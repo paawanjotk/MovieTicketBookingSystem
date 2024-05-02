@@ -1,7 +1,7 @@
 package com.lost.movieticketbookingsystem.services;
 
 import com.lost.movieticketbookingsystem.dtos.ShowDto;
-import com.lost.movieticketbookingsystem.models.Show;
+import com.lost.movieticketbookingsystem.models.Shows;
 import com.lost.movieticketbookingsystem.repositories.ShowRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -11,21 +11,25 @@ import org.springframework.stereotype.Service;
 public class ShowServices {
 
     ShowRepository showRepository;
+    MovieServices movieServices;
 
-    public ShowServices(@Qualifier("showRepository") ShowRepository showRepository){
+
+    public ShowServices(@Qualifier("showRepository") ShowRepository showRepository, @Qualifier("movieServices") MovieServices movieServices){
         this.showRepository = showRepository;
+        this.movieServices = movieServices;
     }
 
-    public ShowDto create(Show show){
+    public ShowDto create(Shows shows){
         ShowDto showDto = new ShowDto();
 
-        showDto.setId(show.getId());
-        showDto.setMovieName(show.getMovie().getTitle());
-        showDto.setCinemaHallId(show.getCinemaHall().getId());
-        showDto.setShowTime(show.getShowTime());
-        showDto.setAvailableSeats(show.getAvailableSeats());
-        showDto.setFilledSeats(show.getFilledSeats());
-        showRepository.save(show);
+        showDto.setId(shows.getId());
+        String movieName = movieServices.getById(shows.getMovieId()).getTitle();
+        showDto.setMovieName(movieName);
+        showDto.setCinemaHallId(shows.getCinemaHallId());
+        showDto.setShowTime(shows.getShowTime());
+        showDto.setAvailableSeats(shows.getAvailableSeats());
+        showDto.setFilledSeats(shows.getFilledSeats());
+        showRepository.save(shows);
 
         return showDto;
     }

@@ -1,10 +1,8 @@
 package com.lost.movieticketbookingsystem.controllers;
 
 import com.lost.movieticketbookingsystem.dtos.ShowDto;
-import com.lost.movieticketbookingsystem.models.Movie;
-import com.lost.movieticketbookingsystem.models.Show;
+import com.lost.movieticketbookingsystem.models.Shows;
 import com.lost.movieticketbookingsystem.services.ShowServices;
-import jakarta.persistence.SqlResultSetMapping;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,9 +18,9 @@ public class ShowController {
 
     @PostMapping
 
-    public ShowDto create(@RequestBody Show show){
+    public ShowDto create(@RequestBody Shows shows){
 
-        return showServices.create(show);
+        return showServices.create(shows);
     }
 
 

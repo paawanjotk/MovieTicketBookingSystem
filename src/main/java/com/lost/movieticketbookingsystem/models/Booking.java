@@ -16,7 +16,7 @@ public class Booking{
     private Long CinemaHallId;
     private Long tickets;
     @ManyToOne //
-    private Show show;
+    private Shows shows;
     private Long price;
 
 

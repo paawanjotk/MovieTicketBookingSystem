@@ -1,9 +1,7 @@
 package com.lost.movieticketbookingsystem.controllers;
 
 import com.lost.movieticketbookingsystem.models.Booking;
-import com.lost.movieticketbookingsystem.models.Show;
 import com.lost.movieticketbookingsystem.services.BookingServices;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
