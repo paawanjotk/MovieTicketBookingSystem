@@ -1,7 +1,7 @@
 package com.lost.movieticketbookingsystem.controllers;
 
 import com.lost.movieticketbookingsystem.models.Booking;
-import com.lost.movieticketbookingsystem.services.BookingServices;
+import com.lost.movieticketbookingsystem.services.BookingServ;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,9 +10,9 @@ import java.util.List;
 @RestController
 public class BookingController {
 
-    BookingServices  bookingServices;
+    BookingServ  bookingServices;
 
-    public BookingController(@Qualifier("bookingServices") BookingServices bookingServices){
+    public BookingController(@Qualifier("bookingServices") BookingServ bookingServices){
         this.bookingServices = bookingServices;
     }
 

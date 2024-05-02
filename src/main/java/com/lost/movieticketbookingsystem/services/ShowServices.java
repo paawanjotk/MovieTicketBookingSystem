@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service("showServices")
 
-public class ShowServices {
+public class ShowServices implements ShowServ{
 
     ShowRepository showRepository;
     MovieServices movieServices;

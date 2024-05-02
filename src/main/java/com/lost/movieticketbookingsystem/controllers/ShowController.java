@@ -2,7 +2,7 @@ package com.lost.movieticketbookingsystem.controllers;
 
 import com.lost.movieticketbookingsystem.dtos.ShowDto;
 import com.lost.movieticketbookingsystem.models.Shows;
-import com.lost.movieticketbookingsystem.services.ShowServices;
+import com.lost.movieticketbookingsystem.services.ShowServ;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/show")
 public class ShowController {
 
-    ShowServices showServices;
+    ShowServ showServices;
 
-    public ShowController(@Qualifier("showServices") ShowServices showServices){
+    public ShowController(@Qualifier("showServices") ShowServ showServices){
         this.showServices = showServices;
     }
 

@@ -1,7 +1,7 @@
 package com.lost.movieticketbookingsystem.controllers;
 
 import com.lost.movieticketbookingsystem.models.CustomerProfile;
-import com.lost.movieticketbookingsystem.services.CustomerServices;
+import com.lost.movieticketbookingsystem.services.CustomerServ;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,9 +10,9 @@ import java.util.List;
 @RestController
 public class CustomerController {
 
-    CustomerServices customerServices;
+    CustomerServ customerServices;
 
-    public CustomerController(@Qualifier("customerServices") CustomerServices customerServices){
+    public CustomerController(@Qualifier("customerServices") CustomerServ customerServices){
         this.customerServices = customerServices;
     }
     @GetMapping("/customer/{id}")
