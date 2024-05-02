@@ -64,6 +64,8 @@ public class BookingServices {
             throw new RuntimeException("Not enough seats available");
         }
         show.setAvailableSeats(show.getAvailableSeats() - booking.getTickets());
+        show.setFilledSeats(show.getFilledSeats() + booking.getTickets());
+        booking.setPrice(show.getPrice() * booking.getTickets());
         return bookingRepository.save(booking);
     }
 

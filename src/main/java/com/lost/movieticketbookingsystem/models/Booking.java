@@ -17,7 +17,7 @@ public class Booking{
     private Long tickets;
     @ManyToOne //
     private Shows shows;
-    private Long price;
+    private Double price;
 
 
 }

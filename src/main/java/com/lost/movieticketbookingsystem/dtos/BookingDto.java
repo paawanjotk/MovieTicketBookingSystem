@@ -14,5 +14,5 @@ public class BookingDto {
     private Long CinemaHallId;
     private Long tickets;
     private Shows shows;
-    private Long price;
+    private Double price;
 }
