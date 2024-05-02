@@ -1,5 +1,6 @@
 package com.lost.movieticketbookingsystem.controllers;
 
+import com.lost.movieticketbookingsystem.dtos.CustomerDto;
 import com.lost.movieticketbookingsystem.models.CustomerProfile;
 import com.lost.movieticketbookingsystem.services.CustomerServices;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,12 +17,12 @@ public class CustomerController {
         this.customerServices = customerServices;
     }
     @GetMapping("/customer/{id}")
-    public CustomerProfile getById(@PathVariable("id") Long id){
+    public CustomerDto getById(@PathVariable("id") Long id){
         return customerServices.getById(id);
     }
 
     @GetMapping("/customer")
-    public List<CustomerProfile> getAll(){
+    public List<CustomerDto> getAll(){
         return customerServices.getAll();
     }
 

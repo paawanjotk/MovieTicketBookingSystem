@@ -1,5 +1,6 @@
 package com.lost.movieticketbookingsystem.services;
 
+import com.lost.movieticketbookingsystem.dtos.CustomerDto;
 import com.lost.movieticketbookingsystem.exceptions.CustomerNotFoundException;
 import com.lost.movieticketbookingsystem.models.CustomerProfile;
 import com.lost.movieticketbookingsystem.repositories.CustomerRepository;
@@ -7,6 +8,7 @@ import org.hibernate.id.enhanced.CustomOptimizerDescriptor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 @Service("customerServices")
@@ -17,17 +19,21 @@ public class CustomerServices {
         this.customerRepository = customerRepository;
     }
 
-    public CustomerProfile getById(Long id){
+    public CustomerDto getById(Long id){
         Optional<CustomerProfile> customerProfile1 = customerRepository.findById(id);
         if(customerProfile1.isEmpty()){
             throw new CustomerNotFoundException("Customer not found");
         }
-
-        return customerProfile1.get();
+        return convertToDto(customerProfile1.get());
     }
 
-    public List<CustomerProfile> getAll(){
-        return customerRepository.findAll();
+    public List<CustomerDto> getAll(){
+        List<CustomerProfile> customerProfiles = customerRepository.findAll();
+        List<CustomerDto> customerDtos = new ArrayList<>();
+        for(int i=0; i<customerProfiles.size(); i++){
+            customerDtos.add(convertToDto(customerProfiles.get(i)));
+        }
+        return customerDtos;
     }
     public CustomerProfile create(CustomerProfile customerProfile){
         return customerRepository.save(customerProfile);
@@ -49,7 +55,14 @@ public class CustomerServices {
     public void delete(Long Id){
         customerRepository.deleteById(Id);
     }
-
+    public CustomerDto convertToDto(CustomerProfile customerProfile){
+        CustomerDto customerDto = new CustomerDto();
+        customerDto.setId(customerProfile.getId());
+        customerDto.setName(customerProfile.getName());
+        customerDto.setEmail(customerProfile.getEmail());
+        customerDto.setContact_no(customerProfile.getContact_no());
+        return customerDto;
+    }
 
 
 

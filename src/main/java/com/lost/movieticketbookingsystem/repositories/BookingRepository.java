@@ -13,7 +13,5 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     @Override
     Booking save(Booking booking);
 
-    List<Booking> findByCustomerId(Long customerId);
-
 
 }

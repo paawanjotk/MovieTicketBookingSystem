@@ -1,5 +1,6 @@
 package com.lost.movieticketbookingsystem.controllers;
 
+import com.lost.movieticketbookingsystem.dtos.MovieDto;
 import com.lost.movieticketbookingsystem.models.Movie;
 import com.lost.movieticketbookingsystem.services.MovieServices;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,12 +20,12 @@ public class MovieController {
 
 
     @GetMapping("/movie/{id}")
-    public Movie getById(@PathVariable("id") Long id){
+    public MovieDto getById(@PathVariable("id") Long id){
         return movieServices.getById(id);
     }
 
     @GetMapping("/movie")
-    public List<Movie> getAll(){
+    public List<MovieDto> getAll(){
         return movieServices.getAll();
     }
 

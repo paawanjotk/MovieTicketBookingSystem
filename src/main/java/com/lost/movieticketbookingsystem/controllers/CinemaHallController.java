@@ -1,5 +1,6 @@
 package com.lost.movieticketbookingsystem.controllers;
 
+import com.lost.movieticketbookingsystem.dtos.CinemaHallDto;
 import com.lost.movieticketbookingsystem.models.CinemaHall;
 import com.lost.movieticketbookingsystem.models.Pair;
 import com.lost.movieticketbookingsystem.services.CinemaHallServices;
@@ -18,11 +19,11 @@ public class CinemaHallController {
         this.cinemaHallServices = cinemaHallServices;
     }
     @GetMapping("/cinemaHall/{id}")
-    public CinemaHall getById(@PathVariable("id") Long id){
+    public CinemaHallDto getById(@PathVariable("id") Long id){
         return cinemaHallServices.getById(id);
     }
     @GetMapping("/cinemaHall")
-    public List<CinemaHall> getAll(){
+    public List<CinemaHallDto> getAll(){
         return cinemaHallServices.getAll();
     }
     @PostMapping("/cinemaHall")

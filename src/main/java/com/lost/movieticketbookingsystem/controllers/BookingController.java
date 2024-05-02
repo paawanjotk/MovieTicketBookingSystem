@@ -16,36 +16,43 @@ public class BookingController {
         this.bookingServices = bookingServices;
     }
 
-    @GetMapping("/booking/{id}")
+    @GetMapping("/bookings/{id}")
     public Booking getById(@PathVariable("id") Long id){
         return bookingServices.getById(id);
     }
-    @GetMapping("/booking")
+    @GetMapping("/bookings")
     public List<Booking> getAll(){
         return bookingServices.getAll();
     }
 
-    @PostMapping("/booking")
+    @PostMapping("/bookings")
     public Booking create(@RequestBody Booking booking){
 
         return bookingServices.create(booking);
     }
 
 
-    @PutMapping("/booking/{id}")
+    @PutMapping("/bookings/{id}")
     public Booking update(@PathVariable("id") Long  Id, @RequestBody Booking booking){
         return bookingServices.update(Id, booking);
     }
 
-    @DeleteMapping("/booking/{id}")
+    @DeleteMapping("/bookings/{id}")
     public void delete(@PathVariable("id") Long Id){
         bookingServices.delete(Id);
     }
 
-    @GetMapping("/customers/bookings/{customerId}")
+    @GetMapping("/customer/bookings/{customerId}")
     public List<Booking> getBookingByCustomerId(@PathVariable("customerId") Long customerId){
         return bookingServices.getBookingByCustomerId(customerId);
     }
-
+    @GetMapping("/movies/bookings/{movieId}")
+    public List<Booking> getBookingByMovieId(@PathVariable("movieId") Long movieId){
+            return bookingServices.getBookingByMovieId(movieId);
+    }
+    @GetMapping("/cinemaHall/bookings/{cinemaHallId}")
+    public List<Booking> getBookingByCinemaHallId(@PathVariable("cinemaHallId") Long cinemaHallId){
+        return bookingServices.getBookingByCinemaHallId(cinemaHallId);
+    }
 
 }

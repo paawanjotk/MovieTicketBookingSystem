@@ -1,5 +1,6 @@
 package com.lost.movieticketbookingsystem.services;
 
+import com.lost.movieticketbookingsystem.dtos.BookingDto;
 import com.lost.movieticketbookingsystem.exceptions.BookingNotFoundException;
 import com.lost.movieticketbookingsystem.models.Booking;
 import com.lost.movieticketbookingsystem.models.Movie;
@@ -10,6 +11,7 @@ import com.lost.movieticketbookingsystem.repositories.MovieRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 @Service("bookingServices")
@@ -28,7 +30,7 @@ public class BookingServices {
         this.movieRepository = movieRepository;
     }
 
-    public Booking getById(Long id){
+    public BookingDto getById(Long id){
         Optional<Booking> booking = bookingRepository.findById(id);
 
         if(booking.isEmpty()){
@@ -36,12 +38,17 @@ public class BookingServices {
         }
 
 
-        return booking.get();
+        return convertToDto(booking.get());
 
     }
 
-   public List<Booking> getAll(){
-       return bookingRepository.findAll();
+   public List<BookingDto> getAll(){
+       List<Booking> bookings =  bookingRepository.findAll();
+       List<BookingDto> bookingDtos = new ArrayList<>();
+       for(int i=0; i<bookings.size(); i++){
+           bookingDtos.add(convertToDto(bookings.get(i)));
+       }
+       return bookingDtos;
    }
 
     public Booking create(Booking booking){
@@ -106,5 +113,15 @@ public class BookingServices {
             }
         }
         return allBookings;
+    }
+    public BookingDto convertToDto(Booking booking){
+        BookingDto bookingDto = new BookingDto();
+        bookingDto.setId(booking.getId());
+        bookingDto.setCustomerId(booking.getCustomerId());
+        bookingDto.setMovieId(booking.getMovieId());
+        bookingDto.setShows(booking.getShows());
+        bookingDto.setTickets(booking.getTickets());
+        bookingDto.setPrice(booking.getPrice());
+        return bookingDto;
     }
 }

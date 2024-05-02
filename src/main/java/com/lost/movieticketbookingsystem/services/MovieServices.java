@@ -1,11 +1,13 @@
 package com.lost.movieticketbookingsystem.services;
 
+import com.lost.movieticketbookingsystem.dtos.MovieDto;
 import com.lost.movieticketbookingsystem.exceptions.MovieNotFoundException;
 import com.lost.movieticketbookingsystem.models.Movie;
 import com.lost.movieticketbookingsystem.repositories.MovieRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,16 +22,21 @@ public class MovieServices {
     }
 
 
-    public Movie getById(Long Id){
+    public MovieDto getById(Long Id){
         Optional<Movie> movie = movieRepository.findById(Id);
         if(movie.isEmpty()){
             throw new MovieNotFoundException("Movie not found");
         }
-        return movie.get();
+        return convertToDto(movie.get());
     }
 
-    public List<Movie> getAll(){
-        return movieRepository.findAll();
+    public List<MovieDto> getAll(){
+        List<Movie> movies = movieRepository.findAll();
+        List<MovieDto> movieDtos = new ArrayList<>();
+        for(int i=0; i<movies.size(); i++){
+            movieDtos.add(convertToDto(movies.get(i)));
+        }
+        return movieDtos;
     }
 
     public Movie create(Movie movie){
@@ -56,6 +63,15 @@ public class MovieServices {
         movieRepository.deleteById(Id);
 
     }
-
+    public MovieDto convertToDto(Movie movie){
+        MovieDto movieDto = new MovieDto();
+        movieDto.setId(movie.getId());
+        movieDto.setTitle(movie.getTitle());
+        movieDto.setDirector(movie.getDirector());
+        movieDto.setGenre(movie.getGenre());
+        movieDto.setRuntime(movie.getRuntime());
+        movieDto.setReleaseDate(movie.getReleaseDate());
+        return movieDto;
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.lost.movieticketbookingsystem.services;
 
+import com.lost.movieticketbookingsystem.dtos.CinemaHallDto;
 import com.lost.movieticketbookingsystem.exceptions.CinemaHallNotFoundException;
 import com.lost.movieticketbookingsystem.exceptions.MovieNotFoundException;
 import com.lost.movieticketbookingsystem.models.CinemaHall;
@@ -29,16 +30,21 @@ public class CinemaHallServices {
         this.movieRepository = movieRepository;
     }
 
-    public CinemaHall getById(Long Id){
+    public CinemaHallDto getById(Long Id){
         Optional<CinemaHall> cinemaHall = cinemaHallRepository.findById(Id);
         if(cinemaHall.isEmpty()){
             throw new CinemaHallNotFoundException("CinemaHall not found");
         }
-        return cinemaHall.get();
+        return convertToDto(cinemaHall.get());
     }
 
-    public List<CinemaHall> getAll(){
-        return cinemaHallRepository.findAll();
+    public List<CinemaHallDto> getAll(){
+        List<CinemaHall> cinemaHalls = cinemaHallRepository.findAll();
+        List<CinemaHallDto> cinemaHallDtos = new ArrayList<>();
+        for(int i=0; i<cinemaHalls.size(); i++){
+            cinemaHallDtos.add(convertToDto(cinemaHalls.get(i)));
+        }
+        return cinemaHallDtos;
     }
     public CinemaHall create(CinemaHall cinemaHall){
         return cinemaHallRepository.save(cinemaHall);
@@ -80,7 +86,15 @@ public class CinemaHallServices {
 
         return pairs;
     }
-
+    public CinemaHallDto convertToDto(CinemaHall cinemaHall){
+        CinemaHallDto cinemaHallDto = new CinemaHallDto();
+        cinemaHallDto.setId(cinemaHall.getId());
+        cinemaHallDto.setName(cinemaHall.getName());
+        cinemaHallDto.setCapacity(cinemaHall.getCapacity());
+        cinemaHallDto.setLocation(cinemaHall.getLocation());
+        cinemaHallDto.setAvailable_technology(cinemaHall.getAvailable_technology());
+        return cinemaHallDto;
+    }
 
 
 
